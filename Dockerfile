@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:stable-slim
 
 WORKDIR /app
 RUN groupadd -r appgroup && useradd -r -m -g appgroup appuser
