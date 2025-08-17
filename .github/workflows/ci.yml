@@ -32,13 +32,23 @@ jobs:
           sudo dpkg -i trivy_0.22.0_Linux-64bit.deb
 
       - name: Build Docker image
-        run: |
-          docker build -t ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }} .
+        #run: docker build -t ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }} .
+        run: docker build -t ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:1.0 . 
 
+  scan-image:
+    runs-on: self-hosted
+    needs: build
+    steps:
+    
       - name: Scan Docker image with Trivy
         run: |
           trivy image --exit-code 1 --severity HIGH,CRITICAL ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
-        
+
+  publish-image:
+    runs-on: self-hosted
+    needs: scan-image
+    steps:
+  
       - name: Log in to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -46,6 +56,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image to registry
-        run: |
-          docker push docker.io/${{ github.repository }}:1.0
-          // docker push ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
+        run: docker push docker.io/leandrominatti/debian-azure:1.0
+        #run: docker push ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
