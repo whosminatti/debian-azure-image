@@ -42,7 +42,7 @@ jobs:
     
       - name: Scan Docker image with Trivy
         # run: trivy image --exit-code 1 --severity HIGH,CRITICAL ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
-        run: trivy image --exit-code 1 --severity HIGH,CRITICAL docker.oi/leandrominatti/debian-azure:${{ github.sha }}
+        run: trivy image --exit-code 1 --severity HIGH,CRITICAL docker.io/leandrominatti/debian-azure:${{ github.sha }}
 
   publish-image:
     runs-on: self-hosted
