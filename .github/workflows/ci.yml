@@ -33,7 +33,7 @@ jobs:
 
       - name: Build Docker image
         # run: docker build -t ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }} .
-        run: docker build -t docker.io/leandrominatti/debian-azure/:${{ github.sha }} . 
+        run: docker build -t docker.io/leandrominatti/debian-azure:${{ github.sha }} . 
 
   scan-image:
     runs-on: self-hosted
