@@ -17,6 +17,6 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /etc/apt/sources.list.d/azure-cli.list \
     && rm -rf /var/lib/apt/lists/*
 
-RUN chown -R appgroup:appgroup /app
+RUN chown -R appuser:appgroup /app
 USER appuser
 CMD ["bash"]
