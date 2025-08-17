@@ -32,8 +32,8 @@ jobs:
           sudo dpkg -i trivy_0.22.0_Linux-64bit.deb
 
       - name: Build Docker image
-        #run: docker build -t ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }} .
-        run: docker build -t ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:1.0 . 
+        # run: docker build -t ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }} .
+        run: docker build -t docker.io/leandrominatti/debian-azure/:${{ github.sha }} . 
 
   scan-image:
     runs-on: self-hosted
@@ -56,5 +56,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Push Docker image to registry
-        run: docker push docker.io/leandrominatti/debian-azure:1.0
+        run: docker push docker.io/leandrominatti/debian-azure:${{ github.sha }}
         #run: docker push ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
