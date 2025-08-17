@@ -47,4 +47,5 @@ jobs:
 
       - name: Push Docker image to registry
         run: |
-          docker push ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
+          docker push docker.io/${{ github.repository }}:1.0
+          // docker push ${{ secrets.REGISTRY_URL }}/${{ github.repository }}:${{ github.sha }}
